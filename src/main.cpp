@@ -86,8 +86,11 @@ int main(int argc, char** argv)
           		meas_package.raw_measurements_ = VectorXd(3);
           		float ro, phi, ro_dot;
           		iss >> ro >> phi >> ro_dot;
-			phi = ((phi> M_PI) ? phi -= 2*M_PI :
-			       (phi<-M_PI) ? phi += 2*M_PI : phi);
+			while(phi > M_PI/2)
+			  phi -= M_PI;
+			while(phi < -M_PI/2)
+			  phi += M_PI;
+
           		meas_package.raw_measurements_ << ro, phi, ro_dot;
           		iss >> timestamp;
           		meas_package.timestamp_ = timestamp;

@@ -35,6 +35,9 @@ private:
   // check whether the tracking toolbox was initialized or not (first measurement)
   bool is_initialized_;
 
+  bool use_laser_;
+  bool use_radar_;
+
   // previous timestamp
   long long previous_timestamp_;
 

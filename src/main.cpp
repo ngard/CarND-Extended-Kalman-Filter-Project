@@ -44,7 +44,7 @@ int main()
 		// "42" at the start of the message means there's a websocket message event.
 		// The 4 signifies a websocket message
 		// The 2 signifies a websocket event
-
+		
 		if (length && length > 2 && data[0] == '4' && data[1] == '2')
 		  {
 		    auto s = hasData(std::string(data));
@@ -53,7 +53,7 @@ int main()
 		      ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
 		      return;
 		    }
-
+		    
 		    auto j = json::parse(s);
 
 		    std::string event = j[0].get<std::string>();
@@ -84,9 +84,9 @@ int main()
 		      } else if (sensor_type.compare("R") == 0) {
       	  		meas_package.sensor_type_ = MeasurementPackage::RADAR;
           		meas_package.raw_measurements_ = VectorXd(3);
-          		float ro, theta, ro_dot;
-          		iss >> ro >> theta >> ro_dot;
-          		meas_package.raw_measurements_ << ro, theta, ro_dot;
+          		float ro, phi, ro_dot;
+          		iss >> ro >> phi >> ro_dot;
+          		meas_package.raw_measurements_ << ro, phi, ro_dot;
           		iss >> timestamp;
           		meas_package.timestamp_ = timestamp;
 		      }
@@ -100,7 +100,6 @@ int main()
 		      gt_values(3) = vy_gt;
 		      ground_truth.push_back(gt_values);
 
-		      cerr << "proc" << endl;
 		      //Call ProcessMeasurment(meas_package) for Kalman filter
 		      fusionEKF.ProcessMeasurement(meas_package);
 
@@ -120,7 +119,6 @@ int main()
 
 		      estimations.push_back(estimate);
 
-		      cerr << "rmse" << endl;
 		      VectorXd RMSE = tools.CalculateRMSE(estimations, ground_truth);
 
 		      json msgJson;

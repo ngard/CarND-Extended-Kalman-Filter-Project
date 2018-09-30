@@ -14,7 +14,7 @@ public:
   /**
   * Constructor.
   */
-  FusionEKF();
+  FusionEKF(int argc, char** argv);
 
   /**
   * Destructor.

@@ -26,12 +26,12 @@ std::string hasData(std::string s) {
   return "";
 }
 
-int main()
+int main(int argc, char** argv)
 {
   uWS::Hub h;
 
   // Create a Kalman Filter instance
-  FusionEKF fusionEKF;
+  FusionEKF fusionEKF(argc,argv);
 
   // used to compute the RMSE later
   Tools tools;

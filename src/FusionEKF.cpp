@@ -11,11 +11,19 @@ using std::vector;
 /*
  * Constructor.
  */
-FusionEKF::FusionEKF() {
+FusionEKF::FusionEKF(int argc, char** argv) {
   is_initialized_ = false;
 
   use_laser_ = true;
   use_radar_ = true;
+
+  for (int argi=0; argi<argc; ++argi) {
+    string arg(argv[argi]);
+    if (arg=="-no-laser")
+      use_laser_ = false;
+    if (arg=="-no-radar")
+      use_radar_ = false;
+  }
 
   previous_timestamp_ = 0;
 
